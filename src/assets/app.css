@@ -1,0 +1,101 @@
+.pageWrap{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-x: hidden;
+}
+.wrap img{
+    max-width: 100% !important;
+}
+.main{
+    flex: 1;
+}
+.ant-layout-header{
+    padding: 0;
+}
+#menu1{
+    border: none;
+}
+.logo{
+    color: #fff;
+    text-align: center;
+}
+.wrap{
+    max-width: 980px;
+    margin: 0 auto;
+}
+.main{
+}
+.headerDivider{
+    margin: 10px 0;
+    height: 44px;
+    float: left;
+}
+.nav{
+    float: left;
+    line-height: 64px;
+}
+.wrap .nav a{
+    color: #fff;
+}
+.xsNav{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+#menu2{
+    background: #fff;
+}
+.main .wrap{
+    border: 1px solid #ccc;
+    border-top: 0;
+}
+.leftMenu{
+    border: none;
+}
+#indexMenu-pc li{
+    border-right: 2px solid rgba(0,0,0,0);
+    text-align: center;
+}
+#indexMenu-pc li:hover,
+#indexMenu-pc .ant-menu-item-selected{
+    border-right: 2px solid #1890ff;
+}
+.indexList{
+    padding: 0 10px;
+    border-left: 1px solid #eee;
+}
+.indexList p {
+    margin: 0;
+}
+.ant-card-body img{
+    max-width: 500px;
+}
+.ant-list-vertical .ant-list-item-meta{
+    align-items: center;
+}
+.ant-list-item-meta{
+    align-items: center;
+}
+/* @media screen and (max-width: 767px) {
+    .leftMenu{
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid #ccc;
+    }
+    .leftMenu li {
+        margin: 0;
+        border-bottom: 2px solid rgba(0,0,0,0);
+        border-right: none;
+    }
+    .leftNav li:hover,
+    .ant-menu-item-selected{
+        background: none;
+        border-bottom: 2px solid #1890ff;
+        border-right: none;
+    }
+    .wrap{
+        width: 100%;
+    }
+} */
