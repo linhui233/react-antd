@@ -10,9 +10,9 @@ export default class RouterIndex extends Component{
         return (
             <Switch>
                 <Route path="/" exact render={() => (
-                    <Redirect to="/index"/>
+                    <Redirect to="/index/all"/>
                 )}></Route>
-                <Route path="/index" component={Index}></Route>
+                <Route path="/index/:id" component={Index}></Route>
                 <Route path="/book" component={Book}></Route>
                 <Route path="/about" component={About}></Route>
                 <Route path="/user" component={User}></Route>
