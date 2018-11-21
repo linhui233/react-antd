@@ -1,8 +1,13 @@
 function list(state={}, action) {
     
     switch(action.type) {
+        case 'LIST_BEFORE_UPDATE':
+            return Object.assign({}, state, {loading: true})
         case 'LIST_UPDATE':
-            return action.data
+            return {
+                loading: false,
+                data: action.data.data
+            }
         default: 
             return state
     }

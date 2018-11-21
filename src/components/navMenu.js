@@ -7,7 +7,7 @@ export default class navMenu extends Component {
     return (
     <Menu id={id} mode={mode} theme="light" className="nav">
         <Menu.Item>
-          <Link to="/index"><Icon type="home"></Icon>首页</Link>
+          <Link to="/"><Icon type="home"></Icon>首页</Link>
         </Menu.Item>
         <Menu.Item>
           <Link to="/book"><Icon type="book"></Icon>教程</Link>

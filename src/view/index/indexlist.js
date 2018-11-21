@@ -13,19 +13,11 @@ class IndexList extends Component {
     }
   }
   componentDidMount() {
-    console.log("componentDidMount");
-    
     this.getData(this.props.tab)
   }
-  componentWillReceiveProps(props) {
-    console.log("componentWillReceiveProps");
-    if(this.props.tab !== props.tab){
-      this.getData(props.tab)
-    }
-  }
   shouldComponentUpdate = (nextProps, nextState) => {
-    
-    if(nextProps === this.props.tab) {
+    if(nextProps.tab !== this.props.tab) {
+      this.getData(nextProps.tab)
       return false
     }
     return true
@@ -33,9 +25,11 @@ class IndexList extends Component {
   
   getData(tab) {
     this.props.dispatch(dispatch => {
+      dispatch({
+        type: 'LIST_BEFORE_UPDATE'
+      })
       axios.get(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=1&limit=15`)
       .then(res => {
-        console.log(res);
         dispatch({
           type: 'LIST_UPDATE',
           data: res.data
@@ -46,12 +40,11 @@ class IndexList extends Component {
     })
   }
   render() {
-    console.log(2);
     console.log(this.props);
     
     return (
       <List 
-        loading={!this.props.success} 
+        loading={this.props.loading} 
         dataSource={this.props.data} 
         renderItem={item => 
           <List.Item
