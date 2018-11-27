@@ -1,30 +1,65 @@
 import React, { Component } from 'react'
 import {Avatar, Card, List, Row, Col} from 'antd'
 import {Link} from 'react-router-dom'
-import data from './data'
-export default class User extends Component {
-  render() {
-    const user = data.data
-    console.log(user);
+import {connect} from 'react-redux'
+import axios from 'axios'
+class User extends Component {
+  componentDidMount() {
+    this.getData(this.props.match.params.id)
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    let name = this.props.match.params.id
+    let nextName = nextProps.match.params.id
+    console.log(name === nextName);
     
+    if(name !== nextName) {
+      this.getData(nextName)
+      return false
+    }
+    return true
+  }
+  
+  getData(name) {
+    
+    this.props.dispatch(dispatch => {
+      dispatch({
+        type: "USER_UPDATE"
+      })
+      axios.get(` https://cnodejs.org/api/v1/user/${name}`)
+      .then(res => {
+        dispatch({
+          type: "USER_UPDATE_SUCCESS",
+          data: res.data
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: 'USER_UPDATE_ERROR'
+        })
+      })
+    })
+  }
+  render() {
+    
+    let {avatar_url, loginname, create_at, githubUsername, recent_replies ,recent_topics} = this.props.data
     return (
       <div className="wrap">
         <div className="userinfo">
-          <Avatar src={user.avatar_url}></Avatar>
+          <Avatar src={avatar_url}></Avatar>
           <Row className="user-wrap">
-            <Col md={8}>用户名称: {user.loginname}</Col>
-            <Col md={8}>github: {user.githubUsername}</Col>
-            <Col md={8}>注册时间: {user.create_at.split("T")[0]}</Col>
+            <Col md={8}>用户名称: {loginname}</Col>
+            <Col md={8}>github: {githubUsername}</Col>
+            <Col md={8}>注册时间: {create_at.split("T")[0]}</Col>
           </Row>
 
         </div>
         <div>
           <Card title="回帖记录">
-            <List dataSource={user.recent_replies} renderItem={item => {
+            <List dataSource={recent_replies} renderItem={item => {
               return (
                 <List.Item className="reply-list">
                   <Avatar src={item.author.avatar_url}></Avatar>
-                  <span>{item.author.loginname}</span>
+                  <Link to={`/user/${item.author.loginname}`}>{item.author.loginname}</Link>
                   <Link to={`/details/${item.id}`}>{item.title}</Link>
                   <p className="reply-time">最后回帖时间: {item.last_reply_at.split("T")[0]}</p>
                 </List.Item>
@@ -33,7 +68,7 @@ export default class User extends Component {
           </Card>
 
           <Card title="发帖历史" type="inner" className="self-topic">
-            <List itemLayout="vertical" dataSource={user.recent_topics} renderItem={item => {
+            <List itemLayout="vertical" dataSource={recent_topics} renderItem={item => {
               return (
                 <List.Item  extra={item.last_reply_at.split("T")[0]}>
                   <Link to={`/details/${item.id}`}>{item.title}</Link>
@@ -46,3 +81,5 @@ export default class User extends Component {
     )
   }
 }
+const mapStateToProps = state => state.user
+export default connect(mapStateToProps)(User)

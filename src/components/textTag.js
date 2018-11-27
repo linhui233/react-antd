@@ -35,8 +35,6 @@ function getTab(data) {
 export default class TextTag extends Component {
   render() {
     let {data} = this.props
-    console.log(getTab(data));
-    
     let theme = tab[getTab(data)]
     return (
         <Tag color={theme.color}>{theme.txt}</Tag>

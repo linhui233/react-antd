@@ -47,7 +47,7 @@ class Details extends Component {
         <div>
           <TxtTag data={props.data}></TxtTag>
           <Avatar src={props.data.author.avatar_url}></Avatar>
-          <Link to={`/user/${props.data.author_loginname}`}>
+          <Link to={`/user/${props.data.author.loginname}`}>
             {props.data.author.loginname}
             发表于{props.data.create_at.split("T")[0]}
           </Link>

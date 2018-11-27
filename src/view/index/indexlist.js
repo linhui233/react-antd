@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 class IndexList extends Component {
   constructor(props) {
-    console.log(props);
     super(props)
     this.state = {
       tab: props.tab
@@ -40,8 +39,6 @@ class IndexList extends Component {
     })
   }
   render() {
-    console.log(this.props);
-    
     return (
       <List 
         loading={this.props.loading} 
@@ -52,10 +49,9 @@ class IndexList extends Component {
             <List.Item.Meta 
               avatar={<Avatar src={item.author.avatar_url}/> }
               title={<div><TextTag data={item}></TextTag><Link to={`/details/${item.id}`}>{item.title}</Link></div>}
-              description={<p><Link to={`/user/${item.id}`}>{item.author.loginname}
+              description={<p><Link to={`/user/${item.author.loginname}`}>{item.author.loginname}
               </Link>发表于:{item.create_at.split("T")[0]}</p>}
             />
-            
           </List.Item>
         }
       >

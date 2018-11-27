@@ -16,6 +16,10 @@
 #menu1{
     border: none;
 }
+#menu1 .ant-menu-item{
+    height: 64px;
+    top: 0px;
+}
 .logo{
     color: #fff;
     text-align: center;
