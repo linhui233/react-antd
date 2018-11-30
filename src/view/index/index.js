@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Row, Col} from 'antd'
+import {Row, Col, Pagination} from 'antd'
 import IndexMenu from '../../components/indexMenu'
 import IndexList from './indexlist'
 export default class Index extends Component {

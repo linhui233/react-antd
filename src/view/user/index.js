@@ -3,6 +3,7 @@ import {Avatar, Card, List, Row, Col} from 'antd'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import axios from 'axios'
+
 class User extends Component {
   componentDidMount() {
     this.getData(this.props.match.params.id)
@@ -42,6 +43,38 @@ class User extends Component {
   render() {
     
     let {avatar_url, loginname, create_at, githubUsername, recent_replies ,recent_topics} = this.props.data
+
+    let renderReply = (recent_replies) => {
+      return (
+        <Card title="回帖记录">
+          <List dataSource={recent_replies} renderItem={item => {
+            return (
+              <List.Item className="reply-list">
+                <Avatar src={item.author.avatar_url}></Avatar>
+                <Link to={`/user/${item.author.loginname}`}>{item.author.loginname}</Link>
+                <Link to={`/details/${item.id}`}>{item.title}</Link>
+                <p className="reply-time">最后回帖时间: {item.last_reply_at.split("T")[0]}</p>
+              </List.Item>
+            )
+          }}></List>
+        </Card>
+      )
+    }
+
+    let renderTopics = (recent_topics) => {
+      return (
+        <Card title="发帖历史" type="inner" className="self-topic">
+          <List itemLayout="vertical" dataSource={recent_topics} renderItem={item => {
+            return (
+              <List.Item  extra={item.last_reply_at.split("T")[0]}>
+                <Link to={`/details/${item.id}`}>{item.title}</Link>
+              </List.Item>
+            )
+          }}></List>
+        </Card>
+      )
+    }
+
     return (
       <div className="wrap">
         <div className="userinfo">
@@ -54,28 +87,8 @@ class User extends Component {
 
         </div>
         <div>
-          <Card title="回帖记录">
-            <List dataSource={recent_replies} renderItem={item => {
-              return (
-                <List.Item className="reply-list">
-                  <Avatar src={item.author.avatar_url}></Avatar>
-                  <Link to={`/user/${item.author.loginname}`}>{item.author.loginname}</Link>
-                  <Link to={`/details/${item.id}`}>{item.title}</Link>
-                  <p className="reply-time">最后回帖时间: {item.last_reply_at.split("T")[0]}</p>
-                </List.Item>
-              )
-            }}></List>
-          </Card>
-
-          <Card title="发帖历史" type="inner" className="self-topic">
-            <List itemLayout="vertical" dataSource={recent_topics} renderItem={item => {
-              return (
-                <List.Item  extra={item.last_reply_at.split("T")[0]}>
-                  <Link to={`/details/${item.id}`}>{item.title}</Link>
-                </List.Item>
-              )
-            }}></List>
-          </Card>
+          {renderReply(recent_replies)}
+          {renderTopics(recent_topics)}
         </div>
       </div>
     )
