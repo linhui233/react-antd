@@ -20,13 +20,13 @@ class IndexList extends Component {
     if(nextProps.tab !== this.props.tab ) {
       
       this.setState({
-        page: 0
+        page: 1
       })
-      this.getData(nextProps.tab,0)
+      this.getData(nextProps.tab,1)
       return false
     }
     if(nextState.page !== this.state.page){
-      this.getData(nextProps.tab,0)
+      this.getData(nextProps.tab,nextState.page)
       return false
     }
     return true
